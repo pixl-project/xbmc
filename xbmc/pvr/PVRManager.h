@@ -21,6 +21,7 @@
 
 #include <map>
 
+#include "addons/AddonDatabase.h"
 #include "addons/include/xbmc_pvr_types.h"
 #include "settings/lib/ISettingCallback.h"
 #include "threads/Event.h"
@@ -85,7 +86,7 @@ namespace PVR
 
   typedef boost::shared_ptr<PVR::CPVRChannelGroup> CPVRChannelGroupPtr;
 
-  class CPVRManager : public ISettingCallback, private CThread, public Observable, public ANNOUNCEMENT::IAnnouncer
+  class CPVRManager : public ISettingCallback, private CThread, public Observable, public ANNOUNCEMENT::IAnnouncer, public IAddonDatabaseCallback
   {
     friend class CPVRClients;
 
@@ -109,8 +110,13 @@ namespace PVR
      */
     static CPVRManager &Get(void);
 
+    // Inherited from ISettingCallback
     virtual void OnSettingChanged(const CSetting *setting);
     virtual void OnSettingAction(const CSetting *setting);
+
+    // Inherited from IAddonDatabaseCallback
+    virtual void AddonEnabled(ADDON::AddonPtr addon, bool bDisabled);
+    virtual void AddonDisabled(ADDON::AddonPtr addon);
 
     /*!
      * @brief Get the channel groups container.
@@ -235,7 +241,7 @@ namespace PVR
     {
       return GetState() == ManagerStateStarting;
     }
-    
+
     /*!
      * @brief Check whether the PVRManager has fully started.
      * @return True if started, false otherwise.
@@ -244,7 +250,7 @@ namespace PVR
     {
       return GetState() == ManagerStateStarted;
     }
-    
+
     /*!
      * @brief Check whether the PVRManager is stopping
      * @return True while the PVRManager is stopping.
@@ -253,7 +259,7 @@ namespace PVR
     {
       return GetState() == ManagerStateStopping;
     }
-    
+
     /*!
      * @brief Check whether the PVRManager has been stopped.
      * @return True if stopped, false otherwise.
@@ -636,7 +642,7 @@ namespace PVR
     bool IsJobPending(const char *strJobName) const;
 
     /*!
-     * @brief Adds the job to the list of pending jobs unless an identical 
+     * @brief Adds the job to the list of pending jobs unless an identical
      * job is already queued
      * @param job the job
      */
