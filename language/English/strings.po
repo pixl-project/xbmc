@@ -417,6 +417,7 @@ msgid "Update failed"
 msgstr ""
 
 #: xbmc/addons/addoninstaller.cpp
+#: xbmc/cores/RetroPlayer/RetroPlayerDialogs.cpp
 msgctxt "#114"
 msgid "Installation failed"
 msgstr ""
@@ -3611,6 +3612,7 @@ msgctxt "#1222"
 msgid "Music & video & pictures & files"
 msgstr ""
 
+#: xbmc/cores/RetroPlayer/RetroPlayerDialogs.cpp
 msgctxt "#1223"
 msgid "Disabled"
 msgstr ""
@@ -5570,6 +5572,7 @@ msgctxt "#13328"
 msgid "%s not found"
 msgstr ""
 
+#: xbmc/cores/RetroPlayer/RetroPlayer.cpp
 msgctxt "#13329"
 msgid "Error opening %s"
 msgstr ""
@@ -7009,7 +7012,10 @@ msgctxt "#16022"
 msgid "Bob (inverted)"
 msgstr ""
 
-#empty string with id 16023
+#: xbmc/cores/RetroPlayer/RetroPlayerDialogs.cpp
+msgctxt "#16023"
+msgid "No compatible emulators found for file:"
+msgstr ""
 
 #: xbmc/dialogs/GUIDialogProgress.cpp
 msgctxt "#16024"
@@ -7020,6 +7026,7 @@ msgctxt "#16025"
 msgid "Enter the artist name"
 msgstr ""
 
+#: xbmc/cores/RetroPlayer/RetroPlayerDialogs.cpp
 msgctxt "#16026"
 msgid "Playback failed"
 msgstr ""
@@ -7032,6 +7039,7 @@ msgctxt "#16028"
 msgid "Enter value"
 msgstr ""
 
+#: xbmc/cores/RetroPlayer/RetroPlayerDialogs.cpp
 msgctxt "#16029"
 msgid "Check the log file for details."
 msgstr ""
@@ -11915,6 +11923,7 @@ msgid "Emulators"
 msgstr ""
 
 #: system/settings/settings.xml
+#: xbmc/cores/RetroPlayer/RetroPlayerDialogs.cpp
 #: xbmc/games/GameFileAutoLauncher.cpp
 msgctxt "#24026"
 msgid "Manage emulators..."
@@ -12057,7 +12066,17 @@ msgctxt "#24054"
 msgid "Changelog"
 msgstr ""
 
-#empty strings from id 24055 to 24058
+#empty strings from id 24055 to 24057
+
+#: xbmc/cores/RetroPlayer/RetroPlayerDialogs.cpp
+msgctxt "#24057"
+msgid "Install emulator"
+msgstr ""
+
+#: xbmc/cores/RetroPlayer/RetroPlayerDialogs.cpp
+msgctxt "#24058"
+msgid "Add-on manager"
+msgstr ""
 
 msgctxt "#24059"
 msgid "Would you like to enable this Add-on?"
@@ -12116,6 +12135,7 @@ msgctxt "#24070"
 msgid "Add-on could not be loaded."
 msgstr ""
 
+#: xbmc/cores/RetroPlayer/RetroPlayerDialogs.cpp
 msgctxt "#24071"
 msgid "An unknown error has occurred."
 msgstr ""

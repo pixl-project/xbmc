@@ -65,6 +65,7 @@
 #include "URL.h"
 #include "music/MusicDatabase.h"
 #include "cores/IPlayer.h"
+#include "games/tags/GameInfoTag.h"
 
 #include "filesystem/PluginDirectory.h"
 #ifdef HAS_FILESYSTEM_RAR
@@ -573,6 +574,16 @@ int CBuiltins::Execute(const CStdString& execString)
           // Otherwise there are 2 entries for the same plugin in ViewModesX.db
           urlParameters = "/";
         }
+        else if (addon->Type() >= ADDON_SCRIPT && addon->Type() <= ADDON_SCRIPT_LYRICS)
+          // Pass the script name (params[0]) and all the parameters
+          // (params[1] ... params[x]) separated by a comma to RunScript
+          cmd = StringUtils::Format("RunScript(%s)", StringUtils::JoinString(params, ",").c_str());
+        else if (addon->Type() == ADDON_GAMEDLL && params.size() >= 2)
+        {
+          CFileItem item(params[1], false);
+          item.SetProperty("gameclient", params[0]);
+          return g_application.PlayMedia(item);
+        }
 
         if (plugin->Provides(CPluginSource::VIDEO))
           cmd = StringUtils::Format("ActivateWindow(Videos,plugin://%s%s,return)", addonid.c_str(), urlParameters.c_str());
@@ -660,6 +671,16 @@ int CBuiltins::Execute(const CStdString& execString)
         playOffset = atoi(params[i].substr(11).c_str()) - 1;
         item.SetProperty("playlist_starting_track", playOffset);
       }
+      else if (StringUtils::StartsWithNoCase(params[i], "platform="))
+      {
+        // A game platform was specified, record the request for when we choose a game client
+        item.GetGameInfoTag()->SetPlatform(params[i].substr(9));
+      }
+      else if (StringUtils::StartsWithNoCase(params[i], "gameclient="))
+      {
+        // A game client ID was specified
+        item.SetProperty("gameclient", params[i].substr(11));
+      }
     }
 
     if (!item.m_bIsFolder && item.IsPlugin())
@@ -682,7 +703,7 @@ int CBuiltins::Execute(const CStdString& execString)
         bool isVideo = items[i]->IsVideo();
         containsMusic |= !isVideo;
         containsVideo |= isVideo;
-        
+
         if (containsMusic && containsVideo)
           break;
       }
@@ -702,7 +723,7 @@ int CBuiltins::Execute(const CStdString& execString)
             items.Remove(i);
         }
       }
-      
+
       g_playlistPlayer.ClearPlaylist(playlist);
       g_playlistPlayer.Add(playlist, items);
       g_playlistPlayer.SetCurrentPlaylist(playlist);
@@ -1007,9 +1028,9 @@ int CBuiltins::Execute(const CStdString& execString)
     g_application.SetVolume(volume);
     if(oldVolume != volume)
     {
-      if(params.size() > 1 && params[1].Equals("showVolumeBar"))    
+      if(params.size() > 1 && params[1].Equals("showVolumeBar"))
       {
-        CApplicationMessenger::Get().ShowVolumeBar(oldVolume < volume);  
+        CApplicationMessenger::Get().ShowVolumeBar(oldVolume < volume);
       }
     }
   }
@@ -1286,7 +1307,7 @@ int CBuiltins::Execute(const CStdString& execString)
             CSkinSettings::Get().SetString(string, replace);
         }
       }
-      else 
+      else
       {
         if (params.size() > 2)
         {
@@ -1647,7 +1668,7 @@ int CBuiltins::Execute(const CStdString& execString)
     if (type == ADDON_VIZ)
       allowNone = true;
 
-    if (type != ADDON_UNKNOWN && 
+    if (type != ADDON_UNKNOWN &&
         CGUIWindowAddonBrowser::SelectAddonID(type,addonID,allowNone))
     {
       CAddonMgr::Get().SetDefault(type,addonID);
