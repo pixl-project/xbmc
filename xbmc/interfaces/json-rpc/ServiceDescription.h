@@ -25,7 +25,7 @@ namespace JSONRPC
   const char* const JSONRPC_SERVICE_VERSION     = "6.15.0";
   const char* const JSONRPC_SERVICE_DESCRIPTION = "JSON-RPC API of XBMC";
 
-  const char* const JSONRPC_SERVICE_TYPES[] = {  
+  const char* const JSONRPC_SERVICE_TYPES[] = {
     "\"Optional.Boolean\": {"
       "\"type\": [ \"null\", \"boolean\" ],"
       "\"default\": null"
@@ -1332,7 +1332,7 @@ namespace JSONRPC
                 "\"xbmc.metadata.scraper.musicvideos\", \"xbmc.metadata.scraper.tvshows\", \"xbmc.ui.screensaver\","
                 "\"xbmc.player.musicviz\", \"xbmc.python.pluginsource\", \"xbmc.python.script\", \"xbmc.python.weather\","
                 "\"xbmc.python.subtitles\", \"xbmc.python.lyrics\", \"xbmc.gui.skin\", \"xbmc.gui.webinterface\","
-                "\"xbmc.pvrclient\", \"xbmc.addon.video\", \"xbmc.addon.audio\", \"xbmc.addon.image\", \"xbmc.addon.executable\","
+                "\"xbmc.pvrclient\", \"xbmc.gameclient\", \"xbmc.addon.video\", \"xbmc.addon.audio\", \"xbmc.addon.image\", \"xbmc.addon.executable\","
                 "\"xbmc.service\", \"xbmc.subtitle.module\" ],"
       "\"default\": \"unknown\""
     "}",
@@ -1721,7 +1721,7 @@ namespace JSONRPC
     "}"
   };
 
-  const char* const JSONRPC_SERVICE_METHODS[] = {  
+  const char* const JSONRPC_SERVICE_METHODS[] = {
     "\"JSONRPC.Introspect\": {"
       "\"type\": \"method\","
       "\"description\": \"Enumerates all actions and descriptions\","
@@ -4014,7 +4014,7 @@ namespace JSONRPC
     "}"
   };
 
-  const char* const JSONRPC_SERVICE_NOTIFICATIONS[] = {  
+  const char* const JSONRPC_SERVICE_NOTIFICATIONS[] = {
     "\"Player.OnPlay\": {"
       "\"type\": \"notification\","
       "\"description\": \"Playback of a media item has been started or the playback speed has changed. If there is no ID available extra information will be provided.\","
