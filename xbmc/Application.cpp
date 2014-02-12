@@ -333,9 +333,7 @@
   #include "input/windows/IRServerSuite.h"
 #endif
 
-#if defined(HAS_JOYSTICK) || defined(HAS_EVENT_SERVER)
 #include "input/JoystickManager.h"
-#endif
 
 #if defined(TARGET_ANDROID)
 #include "android/activity/XBMCApp.h"
@@ -370,7 +368,6 @@ using namespace ANNOUNCEMENT;
 using namespace PVR;
 using namespace EPG;
 using namespace PERIPHERALS;
-using namespace JOYSTICK;
 
 using namespace XbmcThreads;
 
@@ -904,6 +901,8 @@ bool CApplication::Create()
   g_Mouse.SetEnabled(CSettings::Get().GetBool("input.enablemouse"));
 
   g_Keyboard.Initialize();
+
+  CJoystickManager::Get().SetEnabled(CSettings::Get().GetBool("input.enablejoystick"));
 
 #if defined(TARGET_DARWIN_OSX)
   // Configure and possible manually start the helper.
@@ -1539,10 +1538,8 @@ bool CApplication::Initialize()
   // reset our screensaver (starts timers etc.)
   ResetScreenSaver();
 
-#ifdef HAS_JOYSTICK
   CJoystickManager::Get().SetEnabled(CSettings::Get().GetBool("input.enablejoystick") &&
                     CPeripheralImon::GetCountOfImonsConflictWithDInput() == 0);
-#endif
 
   GAMES::CGameManager::Get().Start();
 
@@ -3010,13 +3007,11 @@ void CApplication::FrameMove(bool processEvents, bool processGUI)
 
 bool CApplication::ProcessGamepad(float frameTime)
 {
-#ifdef HAS_JOYSTICK
-  if (m_AppFocused && CJoystickManager::Get().Count() > 0)
+  if (m_AppFocused)
   {
     CJoystickManager::Get().Update();
     return true;
   }
-#endif
   return false;
 }
 
@@ -3220,10 +3215,9 @@ bool CApplication::ProcessJoystickEvent(const std::string& joystickName, int wKe
    if (WakeUpScreenSaverAndDPMS())
      return true;
 
-#ifdef HAS_JOYSTICK
    // Reset the action repeat event
-   CJoystickManager::Get().Reset();
-#endif
+   CJoystickManager::Get().ResetActionRepeater();
+
    g_Mouse.SetActive(false);
 
    int iWin = GetActiveWindowID();
