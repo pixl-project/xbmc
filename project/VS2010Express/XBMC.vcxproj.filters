@@ -3146,9 +3146,6 @@
     <ClCompile Include="..\..\xbmc\games\GameFileAutoLauncher.cpp">
       <Filter>games</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\xbmc\games\GameFileLoader.cpp">
-      <Filter>games</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\xbmc\games\GameManager.cpp">
       <Filter>games</Filter>
     </ClCompile>
@@ -6203,9 +6200,6 @@
       <Filter>games\tags</Filter>
     </ClInclude>
     <ClInclude Include="..\..\xbmc\games\GameFileAutoLauncher.h">
-      <Filter>games</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\xbmc\games\GameFileLoader.h">
       <Filter>games</Filter>
     </ClInclude>
     <ClInclude Include="..\..\xbmc\games\GameManager.h">
