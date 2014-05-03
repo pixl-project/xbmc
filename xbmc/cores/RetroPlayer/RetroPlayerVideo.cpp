@@ -51,9 +51,6 @@ void CRetroPlayerVideo::GoForth(double framerate, bool fullscreen)
 
 void CRetroPlayerVideo::Process()
 {
-  if (!m_dllSwScale.Load())
-    return;
-
   while (!m_bStop)
   {
     // 1s should be a good failsafe if the event isn't triggered (shouldn't happen)
@@ -71,8 +68,7 @@ void CRetroPlayerVideo::Process()
 
   // Clean up
   if (m_swsContext)
-    m_dllSwScale.sws_freeContext(m_swsContext);
-  m_dllSwScale.Unload();
+    sws_freeContext(m_swsContext);
 }
 
 bool CRetroPlayerVideo::ProcessFrame(const VideoFrame &frame)
@@ -203,9 +199,9 @@ bool CRetroPlayerVideo::CheckConfiguration(const DVDVideoPicture &picture)
   }
 
   if (m_swsContext)
-    m_dllSwScale.sws_freeContext(m_swsContext);
+    sws_freeContext(m_swsContext);
 
-  m_swsContext = m_dllSwScale.sws_getContext(
+  m_swsContext = sws_getContext(
     picture.iWidth, picture.iHeight, format,
     picture.iWidth, picture.iHeight, PIX_FMT_YUV420P,
     SWS_FAST_BILINEAR | SwScaleCPUFlags(), NULL, NULL, NULL
@@ -223,7 +219,7 @@ void CRetroPlayerVideo::ColorspaceConversion(const VideoFrame &input, const DVDV
   uint8_t *dst[] =       { output.data[0],        output.data[1],      output.data[2],      0 };
   int      dstStride[] = { output.iLineSize[0],   output.iLineSize[1], output.iLineSize[2], 0 };
 
-  m_dllSwScale.sws_scale(m_swsContext, src, srcStride, 0, input.meta.height, dst, dstStride);
+  sws_scale(m_swsContext, src, srcStride, 0, input.meta.height, dst, dstStride);
 }
 
 void CRetroPlayerVideo::SendVideoFrame(const uint8_t *data, unsigned width, unsigned height, size_t pitch)

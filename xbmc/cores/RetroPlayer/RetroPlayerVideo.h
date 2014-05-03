@@ -23,9 +23,11 @@
 #include "addons/include/xbmc_game_types.h"
 #include "linux/PlatformDefs.h" // Must be included before RenderManager.h
 #include "cores/VideoRenderers/RenderManager.h"
-#include "DllSwScale.h"
 #include "threads/Thread.h"
-
+#include "cores/FFmpeg.h"
+extern "C" {
+    #include "libswscale/swscale.h"
+}
 #include <stdint.h>
 
 struct DVDVideoPicture;
@@ -82,7 +84,6 @@ private:
   bool CheckConfiguration(const DVDVideoPicture &picture);
   void ColorspaceConversion(const VideoFrame &input, const DVDVideoPicture &output);
 
-  DllSwScale              m_dllSwScale;
   SwsContext*             m_swsContext;
 
   CRetroPlayerVideoBuffer m_buffer;
