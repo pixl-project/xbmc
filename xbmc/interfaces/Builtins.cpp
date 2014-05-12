@@ -692,20 +692,19 @@ int CBuiltins::Execute(const CStdString& execString)
       CFileItemList items;
       CStdString extensions = g_advancedSettings.m_videoExtensions + "|" + g_advancedSettings.m_musicExtensions;
       CDirectory::GetDirectory(item.GetPath(),items,extensions);
-      
+
       bool containsMusic = false, containsVideo = false;
       for (int i = 0; i < items.Size(); i++)
       {
         bool isVideo = items[i]->IsVideo();
         containsMusic |= !isVideo;
         containsVideo |= isVideo;
-        
+
         if (containsMusic && containsVideo)
           break;
       }
-      
-      CGUIViewState *state = CGUIViewState::GetViewState(containsVideo ? WINDOW_VIDEO_NAV : WINDOW_MUSIC, items);
-      if (state)
+      auto_ptr<CGUIViewState> state(CGUIViewState::GetViewState(containsVideo ? WINDOW_VIDEO_NAV : WINDOW_MUSIC, items));
+      if (state.get())
         items.Sort(state->GetSortMethod());
       else
         items.Sort(SortByLabel, SortOrderAscending);
@@ -719,7 +718,7 @@ int CBuiltins::Execute(const CStdString& execString)
             items.Remove(i);
         }
       }
-      
+
       g_playlistPlayer.ClearPlaylist(playlist);
       g_playlistPlayer.Add(playlist, items);
       g_playlistPlayer.SetCurrentPlaylist(playlist);
@@ -1024,9 +1023,9 @@ int CBuiltins::Execute(const CStdString& execString)
     g_application.SetVolume(volume);
     if(oldVolume != volume)
     {
-      if(params.size() > 1 && params[1].Equals("showVolumeBar"))    
+      if(params.size() > 1 && params[1].Equals("showVolumeBar"))
       {
-        CApplicationMessenger::Get().ShowVolumeBar(oldVolume < volume);  
+        CApplicationMessenger::Get().ShowVolumeBar(oldVolume < volume);
       }
     }
   }
@@ -1303,7 +1302,7 @@ int CBuiltins::Execute(const CStdString& execString)
             CSkinSettings::Get().SetString(string, replace);
         }
       }
-      else 
+      else
       {
         if (params.size() > 2)
         {
@@ -1664,7 +1663,7 @@ int CBuiltins::Execute(const CStdString& execString)
     if (type == ADDON_VIZ)
       allowNone = true;
 
-    if (type != ADDON_UNKNOWN && 
+    if (type != ADDON_UNKNOWN &&
         CGUIWindowAddonBrowser::SelectAddonID(type,addonID,allowNone))
     {
       CAddonMgr::Get().SetDefault(type,addonID);
