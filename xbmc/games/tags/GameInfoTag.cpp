@@ -20,6 +20,7 @@
 
 #include "GameInfoTag.h"
 #include "utils/Variant.h"
+#include "utils/Archive.h"
 
 using namespace GAME;
 

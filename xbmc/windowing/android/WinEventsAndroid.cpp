@@ -25,7 +25,7 @@
 #include "Application.h"
 #include "guilib/GUIWindowManager.h"
 #include "input/XBMC_vkeys.h"
-#include "input/SDLJoystick.h"
+#include "input/JoystickManager.h"
 #include "utils/log.h"
 #include "windowing/WindowingFactory.h"
 

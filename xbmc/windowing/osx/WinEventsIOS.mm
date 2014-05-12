@@ -22,7 +22,7 @@
 #include <list>
 #include "WinEventsIOS.h"
 #include "input/XBMC_vkeys.h"
-#include "input/SDLJoystick.h"
+#include "input/JoystickManager.h"
 #include "Application.h"
 #include "windowing/WindowingFactory.h"
 #include "threads/CriticalSection.h"
@@ -43,7 +43,7 @@ void CWinEventsIOS::MessagePush(XBMC_Event *newEvent)
 bool CWinEventsIOS::MessagePump()
 {
   bool ret = false;
-  
+
   // Do not always loop, only pump the initial queued count events. else if ui keep pushing
   // events the loop won't finish then it will block xbmc main message loop.
   for (size_t pumpEventCount = GetQueueSize(); pumpEventCount > 0; --pumpEventCount)
@@ -57,8 +57,8 @@ bool CWinEventsIOS::MessagePump()
         return ret;
       pumpEvent = events.front();
       events.pop_front();
-    }  
-    
+    }
+
     if (pumpEvent.type == XBMC_USEREVENT)
     {
       // On ATV2, we push in events as a XBMC_USEREVENT,
