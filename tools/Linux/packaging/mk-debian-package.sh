@@ -72,7 +72,7 @@ function checkEnv {
 function getVersion {
     getGitRev
     if [[ $RELEASEV == "auto" ]]
-    then 
+    then
         local MAJORVER=$(grep VERSION_MAJOR $REPO_DIR/xbmc/GUIInfoManager.h | awk '{ print $3 }')
         local MINORVER=$(grep VERSION_MINOR $REPO_DIR/xbmc/GUIInfoManager.h | awk '{ print $3 }')
         RELEASEV=${MAJORVER}.${MINORVER}
@@ -151,9 +151,9 @@ function buildDebianPackages {
 }
 
 function uploadPkg {
-    PKG="${PBUILDER_BASE}/${dist}-${arch}/result/${DEST/-/_}-${TAGREV}_${arch}.changes"
+    PKG="${PBUILDER_BASE}/${dist}/${arch}/result/${DEST/-/_}-${TAGREV}_${arch}.changes"
     echo "signing package"
-    debsign $PKG
+    debsign --no-re-sign $PKG
     echo "uploading $PKG to $DPUT_TARGET"
     dput $DPUT_TARGET $PKG
     UPLOAD_DONE=$?
@@ -180,4 +180,3 @@ fi
 checkEnv
 buildDebianPackages
 cleanup
-
