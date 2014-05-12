@@ -85,6 +85,8 @@ static void AnnounceRemove(const std::string& content, int id)
   CVariant data;
   data["type"] = content;
   data["id"] = id;
+  if (g_application.IsMusicScanning())
+    data["transaction"] = true;
   ANNOUNCEMENT::CAnnouncementManager::Announce(ANNOUNCEMENT::AudioLibrary, "xbmc", "OnRemove", data);
 }
 
@@ -93,6 +95,8 @@ static void AnnounceUpdate(const std::string& content, int id)
   CVariant data;
   data["type"] = content;
   data["id"] = id;
+  if (g_application.IsMusicScanning())
+    data["transaction"] = true;
   ANNOUNCEMENT::CAnnouncementManager::Announce(ANNOUNCEMENT::AudioLibrary, "xbmc", "OnUpdate", data);
 }
 
@@ -4264,13 +4268,6 @@ bool CMusicDatabase::GetCompilationSongs(const CStdString& strBaseDir, CFileItem
 int CMusicDatabase::GetCompilationAlbumsCount()
 {
   return strtol(GetSingleValue("album", "count(idAlbum)", "bCompilation = 1"), NULL, 10);
-}
-
-void CMusicDatabase::SplitString(const CStdString &multiString, vector<string> &vecStrings, CStdString &extraStrings)
-{
-  vecStrings = StringUtils::Split(multiString, g_advancedSettings.m_musicItemSeparator);
-  for (unsigned int i = 1; i < vecStrings.size(); i++)
-    extraStrings += g_advancedSettings.m_musicItemSeparator + CStdString(vecStrings[i]);
 }
 
 bool CMusicDatabase::SetPathHash(const CStdString &path, const CStdString &hash)

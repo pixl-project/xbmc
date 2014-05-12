@@ -403,6 +403,11 @@ namespace PVR
     void TriggerSaveChannelSettings(void);
 
     /*!
+     * @brief Let the background thread search for missing channel icons.
+     */
+    void TriggerSearchMissingChannelIcons(void);
+
+    /*!
      * @brief Update the channel that is currently active.
      * @param item The new channel.
      * @return True if it was updated correctly, false otherwise.
@@ -553,7 +558,7 @@ namespace PVR
      */
     bool OnAction(const CAction &action);
 
-    static void SettingOptionsPvrStartLastChannelFiller(const CSetting *setting, std::vector< std::pair<std::string, int> > &list, int &current);
+    static void SettingOptionsPvrStartLastChannelFiller(const CSetting *setting, std::vector< std::pair<std::string, int> > &list, int &current, void *data);
 
     /*!
      * @brief Create EPG tags for all channels in internal channel groups
@@ -750,5 +755,15 @@ namespace PVR
   private:
     CFileItem* m_previous;
     CFileItem* m_next;
+  };
+
+  class CPVRSearchMissingChannelIconsJob : public CJob
+  {
+  public:
+    CPVRSearchMissingChannelIconsJob(void) {}
+    virtual ~CPVRSearchMissingChannelIconsJob() {}
+    virtual const char *GetType() const { return "pvr-search-missing-channel-icons"; }
+
+    bool DoWork();
   };
 }

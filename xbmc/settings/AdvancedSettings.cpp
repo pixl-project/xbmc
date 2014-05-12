@@ -50,6 +50,7 @@ using namespace std;
 CAdvancedSettings::CAdvancedSettings()
 {
   m_initialized = false;
+  m_fullScreen = false;
 }
 
 void CAdvancedSettings::OnSettingsLoaded()
@@ -178,6 +179,8 @@ void CAdvancedSettings::Initialize()
   m_stagefrightConfig.useMPEG2codec = -1;
   m_stagefrightConfig.useSwRenderer = false;
   m_stagefrightConfig.useInputDTS = false;
+
+  m_mediacodecForceSoftwareRendring = false;
 
   m_videoDefaultLatency = 0.0;
   m_videoDisableSWMultithreading = false;
@@ -325,7 +328,7 @@ void CAdvancedSettings::Initialize()
   m_curlDisableIPV6 = false;      //Certain hardware/OS combinations have trouble
                                   //with ipv6.
 
-  m_fullScreen = m_startFullScreen = false;
+  m_startFullScreen = false;
   m_showExitButton = true;
   m_splashImage = true;
 
@@ -614,6 +617,8 @@ void CAdvancedSettings::ParseSettingsFile(const CStdString &file)
       XMLUtils::GetBoolean(pStagefrightElem,"useswrenderer",m_stagefrightConfig.useSwRenderer);
       XMLUtils::GetBoolean(pStagefrightElem,"useinputdts",m_stagefrightConfig.useInputDTS);
     }
+
+    XMLUtils::GetBoolean(pElement,"mediacodecforcesoftwarerendering",m_mediacodecForceSoftwareRendring);
 
     TiXmlElement* pAdjustRefreshrate = pElement->FirstChildElement("adjustrefreshrate");
     if (pAdjustRefreshrate)
