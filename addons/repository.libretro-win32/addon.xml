@@ -5,12 +5,12 @@
 		provider-name="garbear">
 	<requires>
 		<import addon="xbmc.addon" version="12.0.0"/>
-		<import addon="xbmc.libretro" version="1.0.0"/>
+		<import addon="xbmc.game" version="1.0.0"/>
 	</requires>
 	<extension point="xbmc.addon.repository" name="Libretro Emulators">
-		<info compressed="false">https://raw.github.com/garbear/repository.libretro/master/release/win32/addons.xml</info>
-		<checksum>https://raw.github.com/garbear/repository.libretro/master/release/win32/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.github.com/garbear/repository.libretro/master/release/win32/</datadir>
+		<info compressed="false">https://raw.github.com/pixl-project/repository.libretro/master/release/win32/addons.xml</info>
+		<checksum>https://raw.github.com/pixl-project/repository.libretro/master/release/win32/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.github.com/pixl-project/repository.libretro/master/release/win32/</datadir>
 		<hashes>true</hashes>
 	</extension>
 	<extension point="xbmc.addon.metadata">
