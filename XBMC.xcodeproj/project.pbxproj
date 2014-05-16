@@ -4022,7 +4022,7 @@
 		88ACB01D0DCF409E0083CFDF /* ASAPCodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAPCodec.h; sourceTree = "<group>"; };
 		88ACB01E0DCF409E0083CFDF /* DllASAP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DllASAP.h; sourceTree = "<group>"; };
 		88ECB6580DE013C4003396A7 /* DiskArbitration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DiskArbitration.framework; path = /System/Library/Frameworks/DiskArbitration.framework; sourceTree = "<absolute>"; };
-		8DD76F7E0486A8DE00D96B5E /* XBMC */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "compiled.mach-o.executable"; path = XBMC; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DD76F7E0486A8DE00D96B5E /* XBMC */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = XBMC; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE4E87A517354C4A00D15206 /* XSLTUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = XSLTUtils.cpp; sourceTree = "<group>"; };
 		AE4E87A617354C4A00D15206 /* XSLTUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XSLTUtils.h; sourceTree = "<group>"; };
 		AE84CB5915A5B8A600A3810E /* TagLibVFSStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TagLibVFSStream.cpp; sourceTree = "<group>"; };
@@ -13338,6 +13338,20 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_MODEL_TUNING = "";
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					_DEBUG,
+					TARGET_POSIX,
+					TARGET_DARWIN,
+					TARGET_DARWIN_OSX,
+					_LINUX,
+					_REENTRANT,
+					_FILE_DEFINED,
+					"_FILE_OFFSET_BITS=64",
+					_LARGEFILE64_SOURCE,
+					__STDC_CONSTANT_MACROS,
+					HAVE_CONFIG_H,
+					HAS_SPC_CODEC,
+				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = "";
 				GENERATE_PROFILING_CODE = NO;
@@ -13378,6 +13392,51 @@
 					"$(OTHER_CFLAGS)",
 					"-Wreorder",
 				);
+				OTHER_LDFLAGS = (
+					"-headerpad_max_install_names",
+					"-Wl,-search_paths_first",
+					"-all_load",
+					"-L$XBMC_DEPENDS/lib",
+					"-lffi",
+					"-lintl",
+					"-lssl",
+					"-lbz2",
+					"-lexpat",
+					"-lresolv",
+					"-lgpg-error",
+					"-lssh",
+					"-llzo2",
+					"-lpcre",
+					"-lpcrecpp",
+					"-lfribidi",
+					"-lcdio",
+					"-lfreetype",
+					"-lfontconfig",
+					"-lsqlite3",
+					"-ltinyxml",
+					"-lmicrohttpd",
+					"-lyajl",
+					"-ljpeg",
+					"-lcrypto",
+					"-lgcrypt",
+					"-lavdevice",
+					"-lavfilter",
+					"-lavcodec",
+					"-lavformat",
+					"-lpostproc",
+					"-lavutil",
+					"-lswresample",
+					"-lswscale",
+					"-lGLEW",
+					"-lSDL",
+					"-lsmbclient",
+					"-lpython2.6",
+					"-ltag",
+					"-L$XBMC_DEPENDS/lib/mysql",
+					"-lmysqlclient",
+					"-lxml2",
+					"-lxslt",
+				);
 				PRODUCT_NAME = XBMC;
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = "";
@@ -13405,6 +13464,20 @@
 				GCC_MODEL_PPC64 = NO;
 				GCC_MODEL_TUNING = "";
 				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					TARGET_POSIX,
+					TARGET_DARWIN,
+					TARGET_DARWIN_OSX,
+					_LINUX,
+					_REENTRANT,
+					_FILE_DEFINED,
+					"_FILE_OFFSET_BITS=64",
+					_LARGEFILE64_SOURCE,
+					__STDC_CONSTANT_MACROS,
+					HAS_SDL_JOYSTICK,
+					HAVE_CONFIG_H,
+					HAS_SPC_CODEC,
+				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_UNROLL_LOOPS = YES;
 				GCC_VERSION = "";
@@ -13444,6 +13517,51 @@
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-Wreorder",
+				);
+				OTHER_LDFLAGS = (
+					"-headerpad_max_install_names",
+					"-Wl,-search_paths_first",
+					"-all_load",
+					"-L$XBMC_DEPENDS/lib",
+					"-lffi",
+					"-lintl",
+					"-lssl",
+					"-lbz2",
+					"-lexpat",
+					"-lresolv",
+					"-lgpg-error",
+					"-lssh",
+					"-llzo2",
+					"-lpcre",
+					"-lpcrecpp",
+					"-lfribidi",
+					"-lcdio",
+					"-lfreetype",
+					"-lfontconfig",
+					"-lsqlite3",
+					"-ltinyxml",
+					"-lmicrohttpd",
+					"-lyajl",
+					"-ljpeg",
+					"-lcrypto",
+					"-lgcrypt",
+					"-lavdevice",
+					"-lavfilter",
+					"-lavcodec",
+					"-lavformat",
+					"-lpostproc",
+					"-lavutil",
+					"-lswresample",
+					"-lswscale",
+					"-lGLEW",
+					"-lSDL",
+					"-lsmbclient",
+					"-lpython2.6",
+					"-ltag",
+					"-L$XBMC_DEPENDS/lib/mysql",
+					"-lmysqlclient",
+					"-lxml2",
+					"-lxslt",
 				);
 				PRODUCT_NAME = XBMC;
 				USE_HEADERMAP = NO;
@@ -13555,6 +13673,49 @@
 					"\"$(SRCROOT)/xbmc/interfaces/legacy\"",
 					"\"$(SRCROOT)/xbmc/interfaces/python\"",
 				);
+				OTHER_LDFLAGS = (
+					"-Wl,-headerpad_max_install_names",
+					"-Wl,-undefined,dynamic_lookup",
+					"-Wl,-read_only_relocs,suppress",
+					"-Wl,-all_load",
+					"-L$XBMC_DEPENDS/lib",
+					"-lbz2",
+					"-lintl",
+					"-lexpat",
+					"-lssl",
+					"-lgpg-error",
+					"-lresolv",
+					"-lffi",
+					"-lssh",
+					"-llzo2",
+					"-lpcre",
+					"-lpcrecpp",
+					"-lfribidi",
+					"-lfreetype",
+					"-lfontconfig",
+					"-lsqlite3",
+					"-ltinyxml",
+					"-lmicrohttpd",
+					"-lsmbclient",
+					"-lpython2.6",
+					"-lyajl",
+					"-ljpeg",
+					"-lcrypto",
+					"-lgcrypt",
+					"-lavdevice",
+					"-lavfilter",
+					"-lavcodec",
+					"-lavformat",
+					"-lpostproc",
+					"-lavutil",
+					"-lswresample",
+					"-lswscale",
+					"-ltag",
+					"-lxslt",
+					"-lxml2",
+					"-L$XBMC_DEPENDS/lib/mysql",
+					"-lmysqlclient",
+				);
 				PLIST_FILE_OUTPUT_FORMAT = xml;
 				PREBINDING = NO;
 				PRODUCT_NAME = XBMC;
@@ -13616,6 +13777,49 @@
 					"\"$(SRCROOT)/xbmc/interfaces/json-rpc\"",
 					"\"$(SRCROOT)/xbmc/interfaces/legacy\"",
 					"\"$(SRCROOT)/xbmc/interfaces/python\"",
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-headerpad_max_install_names",
+					"-Wl,-undefined,dynamic_lookup",
+					"-Wl,-read_only_relocs,suppress",
+					"-Wl,-all_load",
+					"-L$XBMC_DEPENDS/lib",
+					"-lbz2",
+					"-lintl",
+					"-lexpat",
+					"-lssl",
+					"-lgpg-error",
+					"-lresolv",
+					"-lffi",
+					"-lssh",
+					"-llzo2",
+					"-lpcre",
+					"-lpcrecpp",
+					"-lfribidi",
+					"-lfreetype",
+					"-lfontconfig",
+					"-lsqlite3",
+					"-ltinyxml",
+					"-lmicrohttpd",
+					"-lsmbclient",
+					"-lpython2.6",
+					"-lyajl",
+					"-ljpeg",
+					"-lcrypto",
+					"-lgcrypt",
+					"-lavdevice",
+					"-lavfilter",
+					"-lavcodec",
+					"-lavformat",
+					"-lpostproc",
+					"-lavutil",
+					"-lswresample",
+					"-lswscale",
+					"-ltag",
+					"-lxslt",
+					"-lxml2",
+					"-L$XBMC_DEPENDS/lib/mysql",
+					"-lmysqlclient",
 				);
 				PLIST_FILE_OUTPUT_FORMAT = xml;
 				PREBINDING = NO;

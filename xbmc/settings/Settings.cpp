@@ -25,6 +25,7 @@
 #include "Autorun.h"
 #include "LangInfo.h"
 #include "Util.h"
+#include "addons/AddonManager.h"
 #include "addons/Skin.h"
 #include "cores/AudioEngine/AEFactory.h"
 #include "cores/dvdplayer/DVDCodecs/Video/DVDVideoCodec.h"
