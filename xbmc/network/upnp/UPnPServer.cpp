@@ -46,6 +46,8 @@
 #include "xbmc/GUIUserMessages.h"
 #include "utils/FileUtils.h"
 
+NPT_SET_LOCAL_LOGGER("xbmc.upnp.server")
+
 using namespace std;
 using namespace ANNOUNCEMENT;
 using namespace XFILE;
@@ -74,7 +76,7 @@ CUPnPServer::CUPnPServer(const char* friendly_name, const char* uuid /*= NULL*/,
 
 CUPnPServer::~CUPnPServer()
 {
-    ANNOUNCEMENT::CAnnouncementManager::RemoveAnnouncer(this);
+    ANNOUNCEMENT::CAnnouncementManager::Get().RemoveAnnouncer(this);
 }
 
 /*----------------------------------------------------------------------
@@ -108,7 +110,7 @@ CUPnPServer::SetupServices()
     OnScanCompleted(VideoLibrary);
 
     // now safe to start passing on new notifications
-    ANNOUNCEMENT::CAnnouncementManager::AddAnnouncer(this);
+    ANNOUNCEMENT::CAnnouncementManager::Get().AddAnnouncer(this);
 
     return result;
 }
@@ -756,7 +758,8 @@ CUPnPServer::BuildResponse(PLT_ActionReference&          action,
     // this isn't pretty but needed to properly hide the addons node from clients
     if (StringUtils::StartsWith(items.GetPath(), "library")) {
         for (int i=0; i<items.Size(); i++) {
-            if (StringUtils::StartsWith(items[i]->GetPath(), "addons"))
+            if (StringUtils::StartsWith(items[i]->GetPath(), "addons") ||
+                StringUtils::EndsWith(items[i]->GetPath(), "/addons.xml/"))
                 items.Remove(i);
         }
     }
@@ -1064,7 +1067,7 @@ CUPnPServer::OnUpdateObject(PLT_ActionReference&             action,
               CVariant data;
               data["id"] = updated.GetVideoInfoTag()->m_iDbId;
               data["type"] = updated.GetVideoInfoTag()->m_type;
-              ANNOUNCEMENT::CAnnouncementManager::Announce(ANNOUNCEMENT::VideoLibrary, "xbmc", "OnUpdate", data);
+              ANNOUNCEMENT::CAnnouncementManager::Get().Announce(ANNOUNCEMENT::VideoLibrary, "xbmc", "OnUpdate", data);
             }
             updatelisting = true;
         }

@@ -1388,6 +1388,12 @@ void CAdvancedSettings::SettingOptionsLoggingComponentsFiller(const CSetting *se
 #ifdef HAS_AIRTUNES
   list.push_back(std::make_pair(g_localizeStrings.Get(677), LOGAIRTUNES));
 #endif
+#ifdef HAS_UPNP
+  list.push_back(std::make_pair(g_localizeStrings.Get(678), LOGUPNP));
+#endif
+#ifdef HAVE_LIBCEC
+  list.push_back(std::make_pair(g_localizeStrings.Get(679), LOGCEC));
+#endif
 }
 
 void CAdvancedSettings::setExtraLogLevel(const std::vector<CVariant> &components)

@@ -86,12 +86,12 @@ void CGUIDialogNumeric::OnInitWindow()
     break;
   }
 
-  const CGUILabelControl *control = (const CGUILabelControl *)GetControl(CONTROL_HEADING_LABEL);
+  const CGUIControl *control = GetControl(CONTROL_HEADING_LABEL);
   if (control != NULL)
     data["title"] = control->GetDescription();
 
   data["value"] = GetOutput();
-  ANNOUNCEMENT::CAnnouncementManager::Announce(ANNOUNCEMENT::Input, "xbmc", "OnInputRequested", data);
+  ANNOUNCEMENT::CAnnouncementManager::Get().Announce(ANNOUNCEMENT::Input, "xbmc", "OnInputRequested", data);
 }
 
 void CGUIDialogNumeric::OnDeinitWindow(int nextWindowID)
@@ -99,7 +99,7 @@ void CGUIDialogNumeric::OnDeinitWindow(int nextWindowID)
   // call base class
   CGUIDialog::OnDeinitWindow(nextWindowID);
 
-  ANNOUNCEMENT::CAnnouncementManager::Announce(ANNOUNCEMENT::Input, "xbmc", "OnInputFinished");
+  ANNOUNCEMENT::CAnnouncementManager::Get().Announce(ANNOUNCEMENT::Input, "xbmc", "OnInputFinished");
 }
 
 bool CGUIDialogNumeric::OnAction(const CAction &action)
@@ -338,7 +338,7 @@ void CGUIDialogNumeric::FrameMove()
     start = m_block * 4;
     end = m_block * 4 + 3;
   }
-  CGUILabelControl *pLabel = (CGUILabelControl *)GetControl(CONTROL_INPUT_LABEL);
+  CGUILabelControl *pLabel = dynamic_cast<CGUILabelControl *>(GetControl(CONTROL_INPUT_LABEL));
   if (pLabel)
   {
     pLabel->SetLabel(strLabel);

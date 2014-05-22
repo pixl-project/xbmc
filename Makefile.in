@@ -14,7 +14,7 @@ XBMCTEX_DIRS= \
 
 DVDPCODECS_DIRS= \
 	lib \
-	lib/libdvd 
+	lib/libdvd
 
 ifeq (@USE_LIBSTAGEFRIGHT@,1)
 DVDPCODECS_DIRS += xbmc/cores/dvdplayer/DVDCodecs/Video/libstagefrightICS
@@ -295,13 +295,15 @@ GTEST_DIR = lib/gtest
 GTEST_INCLUDES = -I$(GTEST_DIR)/include
 GTEST_LIBS = $(GTEST_DIR)/lib/.libs/libgtest.a
 
-CHECK_DIRS = xbmc/filesystem/test \
+CHECK_DIRS = xbmc/addons/test \
+             xbmc/filesystem/test \
              xbmc/games/test \
              xbmc/utils/test \
              xbmc/threads/test \
              xbmc/interfaces/python/test \
              xbmc/test
-CHECK_LIBS = xbmc/filesystem/test/filesystemTest.a \
+CHECK_LIBS = xbmc/addons/test/addonsTest.a \
+             xbmc/filesystem/test/filesystemTest.a \
              xbmc/games/test/gamesTest.a \
              xbmc/utils/test/utilsTest.a \
              xbmc/threads/test/threadTest.a \
@@ -402,7 +404,7 @@ dvdpcodecs: dllloader
 	$(MAKE) -C lib/libdvd
 
 ifeq (@USE_LIBSTAGEFRIGHT@,1)
-dvdpextcodecs: libxbmc.so 
+dvdpextcodecs: libxbmc.so
 	$(MAKE) -C xbmc/cores/dvdplayer/DVDCodecs/Video/libstagefrightICS
 else
 dvdpextcodecs:

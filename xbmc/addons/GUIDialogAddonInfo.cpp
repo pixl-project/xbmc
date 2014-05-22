@@ -41,6 +41,7 @@
 #include "addons/AddonInstaller.h"
 #include "pvr/PVRManager.h"
 #include "Util.h"
+#include "interfaces/Builtins.h"
 
 #define CONTROL_BTN_INSTALL          6
 #define CONTROL_BTN_ENABLE           7
@@ -48,6 +49,7 @@
 #define CONTROL_BTN_SETTINGS         9
 #define CONTROL_BTN_CHANGELOG       10
 #define CONTROL_BTN_ROLLBACK        11
+#define CONTROL_BTN_SELECT          12
 
 using namespace std;
 using namespace ADDON;
@@ -96,6 +98,11 @@ bool CGUIDialogAddonInfo::OnMessage(CGUIMessage& message)
           OnUninstall();
           return true;
         }
+      }
+      else if (iControl == CONTROL_BTN_SELECT)
+      {
+        OnLaunch();
+        return true;
       }
       else if (iControl == CONTROL_BTN_ENABLE)
       {
@@ -150,6 +157,7 @@ void CGUIDialogAddonInfo::UpdateControls()
   bool isSystem = isInstalled && StringUtils::StartsWith(m_localAddon->Path(), xbmcPath);
   bool isEnabled = isInstalled && m_item->GetProperty("Addon.Enabled").asBoolean();
   bool isUpdatable = isInstalled && m_item->GetProperty("Addon.UpdateAvail").asBoolean();
+  bool isExecutable = isInstalled && (m_localAddon->Type() == ADDON_PLUGIN || m_localAddon->Type() == ADDON_SCRIPT);
   if (isInstalled)
     GrabRollbackVersions();
 
@@ -167,13 +175,14 @@ void CGUIDialogAddonInfo::UpdateControls()
 
   CONTROL_ENABLE_ON_CONDITION(CONTROL_BTN_UPDATE, isUpdatable);
   CONTROL_ENABLE_ON_CONDITION(CONTROL_BTN_SETTINGS, isInstalled && m_localAddon->HasSettings());
+  CONTROL_ENABLE_ON_CONDITION(CONTROL_BTN_SELECT, isExecutable);
   CONTROL_ENABLE_ON_CONDITION(CONTROL_BTN_CHANGELOG, !isRepo);
   CONTROL_ENABLE_ON_CONDITION(CONTROL_BTN_ROLLBACK, m_rollbackVersions.size() > 1);
 }
 
 void CGUIDialogAddonInfo::OnUpdate()
 {
-  CStdString referer = StringUtils::Format("Referer=%s-%s.zip",m_localAddon->ID().c_str(),m_localAddon->Version().c_str());
+  CStdString referer = StringUtils::Format("Referer=%s-%s.zip",m_localAddon->ID().c_str(),m_localAddon->Version().asString().c_str());
   CAddonInstaller::Get().Install(m_addon->ID(), true, referer); // force install
   Close();
 }
@@ -181,6 +190,12 @@ void CGUIDialogAddonInfo::OnUpdate()
 void CGUIDialogAddonInfo::OnInstall()
 {
   CAddonInstaller::Get().Install(m_addon->ID());
+  Close();
+}
+
+void CGUIDialogAddonInfo::OnLaunch()
+{
+  CBuiltins::Execute("RunAddon(" + m_addon->ID() + ")");
   Close();
 }
 
@@ -295,7 +310,7 @@ void CGUIDialogAddonInfo::OnRollback()
   for (unsigned int i=0;i<m_rollbackVersions.size();++i)
   {
     CStdString label(m_rollbackVersions[i]);
-    if (m_rollbackVersions[i].Equals(m_localAddon->Version().c_str()))
+    if (m_rollbackVersions[i] == m_localAddon->Version().asString())
      label += " "+g_localizeStrings.Get(24094);
    if (database.IsAddonBlacklisted(m_localAddon->ID(),label))
      label += " "+g_localizeStrings.Get(24095);
