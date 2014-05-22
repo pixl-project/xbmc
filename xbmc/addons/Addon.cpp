@@ -49,7 +49,7 @@ namespace ADDON
 {
 
 /**
- * helper functions 
+ * helper functions
  *
  */
 
@@ -83,7 +83,7 @@ static const TypeMapping types[] =
    {"xbmc.gui.webinterface",             ADDON_WEB_INTERFACE,         199, "DefaultAddonWebSkin.png" },
    {"xbmc.addon.repository",             ADDON_REPOSITORY,          24011, "DefaultAddonRepository.png" },
    {"xbmc.pvrclient",                    ADDON_PVRDLL,              24019, "DefaultAddonPVRClient.png" },
-   {"xbmc.gameclient",                   ADDON_GAMEDLL,             24024, "DefaultAddonGame.png" },
+   {"xbmc.gameclient",                   ADDON_GAMEDLL,             24025, "DefaultAddonGame.png" },
    {"xbmc.addon.video",                  ADDON_VIDEO,                1037, "DefaultAddonVideo.png" },
    {"xbmc.addon.audio",                  ADDON_AUDIO,                1038, "DefaultAddonMusic.png" },
    {"xbmc.addon.image",                  ADDON_IMAGE,                1039, "DefaultAddonPicture.png" },
@@ -368,7 +368,7 @@ void CAddon::BuildLibName(const cp_extension_t *extension)
     case ADDON_SCRIPT_LIBRARY:
     case ADDON_SCRIPT_LYRICS:
     case ADDON_SCRIPT_WEATHER:
-    case ADDON_SUBTITLE_MODULE:        
+    case ADDON_SUBTITLE_MODULE:
     case ADDON_PLUGIN:
     case ADDON_SERVICE:
       ext = ADDON_PYTHON_EXT;
@@ -523,7 +523,7 @@ void CAddon::SaveSettings(void)
   SettingsToXML(doc);
   doc.SaveFile(m_userSettingsPath);
   m_userSettingsLoaded = true;
-  
+
   CAddonMgr::Get().ReloadSettings(ID());//push the settings changes to the running addon instance
 #ifdef HAS_PYTHON
   g_pythonParser.OnSettingsChanged(ID());
@@ -667,4 +667,3 @@ CStdString GetXbmcApiVersionDependency(ADDON::AddonPtr addon)
 
 
 } /* namespace ADDON */
-
