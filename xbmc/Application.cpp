@@ -3498,6 +3498,8 @@ void CApplication::Stop(int exitCode)
     CLog::Log(LOGNOTICE, "stop player");
     m_pPlayer->ClosePlayer();
 
+    CAnnouncementManager::Deinitialize();
+
     StopPVRManager();
     GAME::CGameManager::Get().Stop();
     StopServices();
@@ -3948,8 +3950,8 @@ PlayBackRet CApplication::PlayFile(const CFileItem& item, bool bRestart)
          should the playerState be required, it is fetched from the database.
          See the note in CGUIWindowVideoBase::ShowResumeMenu.
          */
-        if (item.HasVideoInfoTag() && item.GetVideoInfoTag()->m_resumePoint.IsSet())
-          options.starttime = item.GetVideoInfoTag()->m_resumePoint.timeInSeconds;
+        if (item.IsResumePointSet())
+          options.starttime = item.GetCurrentResumeTime();
       }
       else if (item.HasVideoInfoTag())
       {
