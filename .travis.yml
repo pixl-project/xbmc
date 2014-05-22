@@ -12,6 +12,7 @@ script:
 branches:
   only:
     - master
+    - Gotham
 os:
   - linux
 notifications:
