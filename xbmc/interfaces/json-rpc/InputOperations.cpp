@@ -131,3 +131,63 @@ JSONRPC_STATUS CInputOperations::ShowOSD(const CStdString &method, ITransportLay
 {
   return SendAction(ACTION_SHOW_OSD);
 }
+
+JSONRPC_STATUS CInputOperations::JoypadStart(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
+{
+  return SendAction(ACTION_JOYPAD_START);
+}
+
+JSONRPC_STATUS CInputOperations::JoypadSelect(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
+{
+  return SendAction(ACTION_JOYPAD_SELECT);
+}
+
+JSONRPC_STATUS CInputOperations::JoypadLeft(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
+{
+  return SendAction(ACTION_JOYPAD_LEFT);
+}
+
+JSONRPC_STATUS CInputOperations::JoypadRight(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
+{
+  return SendAction(ACTION_JOYPAD_RIGHT);
+}
+
+JSONRPC_STATUS CInputOperations::JoypadDown(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
+{
+  return SendAction(ACTION_JOYPAD_DOWN);
+}
+
+JSONRPC_STATUS CInputOperations::JoypadUp(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
+{
+  return SendAction(ACTION_JOYPAD_UP);
+}
+
+JSONRPC_STATUS CInputOperations::JoypadA(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
+{
+  return SendAction(ACTION_JOYPAD_A);
+}
+
+JSONRPC_STATUS CInputOperations::JoypadB(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
+{
+  return SendAction(ACTION_JOYPAD_B);
+}
+
+JSONRPC_STATUS CInputOperations::JoypadX(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
+{
+  return SendAction(ACTION_JOYPAD_X);
+}
+
+JSONRPC_STATUS CInputOperations::JoypadY(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
+{
+  return SendAction(ACTION_JOYPAD_Y);
+}
+
+JSONRPC_STATUS CInputOperations::JoypadL(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
+{
+  return SendAction(ACTION_JOYPAD_L);
+}
+
+JSONRPC_STATUS CInputOperations::JoypadR(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
+{
+  return SendAction(ACTION_JOYPAD_R);
+}

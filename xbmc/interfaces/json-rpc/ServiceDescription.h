@@ -25,7 +25,7 @@ namespace JSONRPC
   const char* const JSONRPC_SERVICE_VERSION     = "6.14.3";
   const char* const JSONRPC_SERVICE_DESCRIPTION = "JSON-RPC API of XBMC";
 
-  const char* const JSONRPC_SERVICE_TYPES[] = {  
+  const char* const JSONRPC_SERVICE_TYPES[] = {
     "\"Optional.Boolean\": {"
       "\"type\": [ \"null\", \"boolean\" ],"
       "\"default\": null"
@@ -1715,7 +1715,7 @@ namespace JSONRPC
     "}"
   };
 
-  const char* const JSONRPC_SERVICE_METHODS[] = {  
+  const char* const JSONRPC_SERVICE_METHODS[] = {
     "\"JSONRPC.Introspect\": {"
       "\"type\": \"method\","
       "\"description\": \"Enumerates all actions and descriptions\","
@@ -3791,6 +3791,102 @@ namespace JSONRPC
       "\"params\": [],"
       "\"returns\": \"string\""
     "}",
+    "\"Input.JoypadStart\": {"
+      "\"type\": \"method\","
+      "\"description\": \"Press start in RetroPlayer\","
+      "\"transport\": \"Response\","
+      "\"permission\": \"Navigate\","
+      "\"params\": [],"
+      "\"returns\": \"string\""
+    "}",
+    "\"Input.JoypadSelect\": {"
+      "\"type\": \"method\","
+      "\"description\": \"Press select in RetroPlayer\","
+      "\"transport\": \"Response\","
+      "\"permission\": \"Navigate\","
+      "\"params\": [],"
+      "\"returns\": \"string\""
+    "}",
+    "\"Input.JoypadLeft\": {"
+      "\"type\": \"method\","
+      "\"description\": \"Navigate left in RetroPlayer\","
+      "\"transport\": \"Response\","
+      "\"permission\": \"Navigate\","
+      "\"params\": [],"
+      "\"returns\": \"string\""
+    "}",
+    "\"Input.JoypadRight\": {"
+      "\"type\": \"method\","
+      "\"description\": \"Navigate right in RetroPlayer\","
+      "\"transport\": \"Response\","
+      "\"permission\": \"Navigate\","
+      "\"params\": [],"
+      "\"returns\": \"string\""
+    "}",
+    "\"Input.JoypadUp\": {"
+      "\"type\": \"method\","
+      "\"description\": \"Navigate up in Retroplayer\","
+      "\"transport\": \"Response\","
+      "\"permission\": \"Navigate\","
+      "\"params\": [],"
+      "\"returns\": \"string\""
+    "}",
+    "\"Input.JoypadDown\": {"
+      "\"type\": \"method\","
+      "\"description\": \"Navigate down in RetroPlayer\","
+      "\"transport\": \"Response\","
+      "\"permission\": \"Navigate\","
+      "\"params\": [],"
+      "\"returns\": \"string\""
+    "}",
+    "\"Input.JoypadA\": {"
+      "\"type\": \"method\","
+      "\"description\": \"Press A in RetroPlayer\","
+      "\"transport\": \"Response\","
+      "\"permission\": \"Navigate\","
+      "\"params\": [],"
+      "\"returns\": \"string\""
+    "}",
+    "\"Input.JoypadB\": {"
+      "\"type\": \"method\","
+      "\"description\": \"Press B in RetroPlayer\","
+      "\"transport\": \"Response\","
+      "\"permission\": \"Navigate\","
+      "\"params\": [],"
+      "\"returns\": \"string\""
+    "}",
+    "\"Input.JoypadX\": {"
+      "\"type\": \"method\","
+      "\"description\": \"Press X in RetroPlayer\","
+      "\"transport\": \"Response\","
+      "\"permission\": \"Navigate\","
+      "\"params\": [],"
+      "\"returns\": \"string\""
+    "}",
+    "\"Input.JoypadY\": {"
+      "\"type\": \"method\","
+      "\"description\": \"Press Y in RetroPlayer\","
+      "\"transport\": \"Response\","
+      "\"permission\": \"Navigate\","
+      "\"params\": [],"
+      "\"returns\": \"string\""
+    "}",
+    "\"Input.JoypadL\": {"
+      "\"type\": \"method\","
+      "\"description\": \"Press L in RetroPlayer\","
+      "\"transport\": \"Response\","
+      "\"permission\": \"Navigate\","
+      "\"params\": [],"
+      "\"returns\": \"string\""
+    "}",
+    "\"Input.JoypadR\": {"
+      "\"type\": \"method\","
+      "\"description\": \"Press R in RetroPlayer\","
+      "\"transport\": \"Response\","
+      "\"permission\": \"Navigate\","
+      "\"params\": [],"
+      "\"returns\": \"string\""
+    "}",
     "\"Application.GetProperties\": {"
       "\"type\": \"method\","
       "\"description\": \"Retrieves the values of the given properties\","
@@ -4008,7 +4104,7 @@ namespace JSONRPC
     "}"
   };
 
-  const char* const JSONRPC_SERVICE_NOTIFICATIONS[] = {  
+  const char* const JSONRPC_SERVICE_NOTIFICATIONS[] = {
     "\"Player.OnPlay\": {"
       "\"type\": \"notification\","
       "\"description\": \"Playback of a media item has been started or the playback speed has changed. If there is no ID available extra information will be provided.\","
