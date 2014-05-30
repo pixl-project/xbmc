@@ -2079,7 +2079,9 @@
     "description": "Press start in RetroPlayer",
     "transport": "Response",
     "permission": "Navigate",
-    "params": [],
+    "params": [
+      { "name": "down", "type": "boolean", "description": "Button state." }
+    ],
     "returns": "string"
   },
   "Input.JoypadSelect": {
@@ -2087,7 +2089,9 @@
     "description": "Press select in RetroPlayer",
     "transport": "Response",
     "permission": "Navigate",
-    "params": [],
+    "params": [
+      { "name": "down", "type": "boolean", "description": "Button state." }
+    ],
     "returns": "string"
   },
   "Input.JoypadLeft": {
@@ -2095,7 +2099,9 @@
     "description": "Navigate left in RetroPlayer",
     "transport": "Response",
     "permission": "Navigate",
-    "params": [],
+    "params": [
+      { "name": "down", "type": "boolean", "description": "Button state." }
+    ],
     "returns": "string"
   },
   "Input.JoypadRight": {
@@ -2103,7 +2109,9 @@
     "description": "Navigate right in RetroPlayer",
     "transport": "Response",
     "permission": "Navigate",
-    "params": [],
+    "params": [
+      { "name": "down", "type": "boolean", "description": "Button state." }
+    ],
     "returns": "string"
   },
   "Input.JoypadUp": {
@@ -2111,7 +2119,9 @@
     "description": "Navigate up in RetroPlayer",
     "transport": "Response",
     "permission": "Navigate",
-    "params": [],
+    "params": [
+      { "name": "down", "type": "boolean", "description": "Button state." }
+    ],
     "returns": "string"
   },
   "Input.JoypadDown": {
@@ -2119,7 +2129,9 @@
     "description": "Navigate down in RetroPlayer",
     "transport": "Response",
     "permission": "Navigate",
-    "params": [],
+    "params": [
+      { "name": "down", "type": "boolean", "description": "Button state." }
+    ],
     "returns": "string"
   },
   "Input.JoypadA": {
@@ -2127,7 +2139,9 @@
     "description": "Press A in RetroPlayer",
     "transport": "Response",
     "permission": "Navigate",
-    "params": [],
+    "params": [
+      { "name": "down", "type": "boolean", "description": "Button state." }
+    ],
     "returns": "string"
   },
   "Input.JoypadB": {
@@ -2135,7 +2149,9 @@
     "description": "Press B in RetroPlayer",
     "transport": "Response",
     "permission": "Navigate",
-    "params": [],
+    "params": [
+      { "name": "down", "type": "boolean", "description": "Button state." }
+    ],
     "returns": "string"
   },
   "Input.JoypadX": {
@@ -2143,7 +2159,9 @@
     "description": "Press X in RetroPlayer",
     "transport": "Response",
     "permission": "Navigate",
-    "params": [],
+    "params": [
+      { "name": "down", "type": "boolean", "description": "Button state." }
+    ],
     "returns": "string"
   },
   "Input.JoypadY": {
@@ -2151,7 +2169,9 @@
     "description": "Press Y in RetroPlayer",
     "transport": "Response",
     "permission": "Navigate",
-    "params": [],
+    "params": [
+      { "name": "down", "type": "boolean", "description": "Button state." }
+    ],
     "returns": "string"
   },
   "Input.JoypadL": {
@@ -2159,7 +2179,9 @@
     "description": "Press L in RetroPlayer",
     "transport": "Response",
     "permission": "Navigate",
-    "params": [],
+    "params": [
+      { "name": "down", "type": "boolean", "description": "Button state." }
+    ],
     "returns": "string"
   },
   "Input.JoypadR": {
@@ -2167,7 +2189,9 @@
     "description": "Press R in RetroPlayer",
     "transport": "Response",
     "permission": "Navigate",
-    "params": [],
+    "params": [
+      { "name": "down", "type": "boolean", "description": "Button state." }
+    ],
     "returns": "string"
   },
   "Application.GetProperties": {

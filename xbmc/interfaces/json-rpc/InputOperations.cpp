@@ -27,7 +27,9 @@
 #include "input/ButtonTranslator.h"
 #include "input/XBMC_keyboard.h"
 #include "input/XBMC_vkeys.h"
+#include "input/IInputHandler.h"
 #include "threads/SingleLock.h"
+
 
 using namespace JSONRPC;
 
@@ -134,60 +136,180 @@ JSONRPC_STATUS CInputOperations::ShowOSD(const CStdString &method, ITransportLay
 
 JSONRPC_STATUS CInputOperations::JoypadStart(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
 {
-  return SendAction(ACTION_JOYPAD_START);
+  IInputHandler* inputHandler = g_application.m_pPlayer->GetInputHandler();
+  if (inputHandler)
+  {
+    bool down = parameterObject["down"].asBoolean();
+    CAction action = CAction(ACTION_JOYPAD_START);
+    if (down == true)
+      inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
+    else
+      inputHandler->ProcessKeyUp(0, action.GetButtonCode());
+  }
+  return OK;
 }
 
 JSONRPC_STATUS CInputOperations::JoypadSelect(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
 {
-  return SendAction(ACTION_JOYPAD_SELECT);
+  IInputHandler* inputHandler = g_application.m_pPlayer->GetInputHandler();
+  if (inputHandler)
+  {
+    bool down = parameterObject["down"].asBoolean();
+    CAction action = CAction(ACTION_JOYPAD_SELECT);
+    if (down == true)
+      inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
+    else
+      inputHandler->ProcessKeyUp(0, action.GetButtonCode());
+  }
+  return OK;
 }
 
 JSONRPC_STATUS CInputOperations::JoypadLeft(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
 {
-  return SendAction(ACTION_JOYPAD_LEFT);
+  IInputHandler* inputHandler = g_application.m_pPlayer->GetInputHandler();
+  if (inputHandler)
+  {
+    bool down = parameterObject["down"].asBoolean();
+    CAction action = CAction(ACTION_JOYPAD_LEFT);
+    if (down == true)
+      inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
+    else
+      inputHandler->ProcessKeyUp(0, action.GetButtonCode());
+  }
+  return OK;
 }
 
 JSONRPC_STATUS CInputOperations::JoypadRight(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
 {
-  return SendAction(ACTION_JOYPAD_RIGHT);
+  IInputHandler* inputHandler = g_application.m_pPlayer->GetInputHandler();
+  if (inputHandler)
+  {
+    bool down = parameterObject["down"].asBoolean();
+    CAction action = CAction(ACTION_JOYPAD_RIGHT);
+    if (down == true)
+      inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
+    else
+      inputHandler->ProcessKeyUp(0, action.GetButtonCode());
+  }
+  return OK;
 }
 
 JSONRPC_STATUS CInputOperations::JoypadDown(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
 {
-  return SendAction(ACTION_JOYPAD_DOWN);
+  IInputHandler* inputHandler = g_application.m_pPlayer->GetInputHandler();
+  if (inputHandler)
+  {
+    bool down = parameterObject["down"].asBoolean();
+    CAction action = CAction(ACTION_JOYPAD_DOWN);
+    if (down == true)
+      inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
+    else
+      inputHandler->ProcessKeyUp(0, action.GetButtonCode());
+  }
+  return OK;
 }
 
 JSONRPC_STATUS CInputOperations::JoypadUp(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
 {
-  return SendAction(ACTION_JOYPAD_UP);
+  IInputHandler* inputHandler = g_application.m_pPlayer->GetInputHandler();
+  if (inputHandler)
+  {
+    bool down = parameterObject["down"].asBoolean();
+    CAction action = CAction(ACTION_JOYPAD_UP);
+    if (down == true)
+      inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
+    else
+      inputHandler->ProcessKeyUp(0, action.GetButtonCode());
+  }
+  return OK;
 }
 
 JSONRPC_STATUS CInputOperations::JoypadA(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
 {
-  return SendAction(ACTION_JOYPAD_A);
+  IInputHandler* inputHandler = g_application.m_pPlayer->GetInputHandler();
+  if (inputHandler)
+  {
+    bool down = parameterObject["down"].asBoolean();
+    CAction action = CAction(ACTION_JOYPAD_A);
+    if (down == true)
+      inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
+    else
+      inputHandler->ProcessKeyUp(0, action.GetButtonCode());
+  }
+  return OK;
 }
 
 JSONRPC_STATUS CInputOperations::JoypadB(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
 {
-  return SendAction(ACTION_JOYPAD_B);
+  IInputHandler* inputHandler = g_application.m_pPlayer->GetInputHandler();
+  if (inputHandler)
+  {
+    bool down = parameterObject["down"].asBoolean();
+    CAction action = CAction(ACTION_JOYPAD_B);
+    if (down == true)
+      inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
+    else
+      inputHandler->ProcessKeyUp(0, action.GetButtonCode());
+  }
+  return OK;
 }
 
 JSONRPC_STATUS CInputOperations::JoypadX(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
 {
-  return SendAction(ACTION_JOYPAD_X);
+  IInputHandler* inputHandler = g_application.m_pPlayer->GetInputHandler();
+  if (inputHandler)
+  {
+    bool down = parameterObject["down"].asBoolean();
+    CAction action = CAction(ACTION_JOYPAD_X);
+    if (down == true)
+      inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
+    else
+      inputHandler->ProcessKeyUp(0, action.GetButtonCode());
+  }
+  return OK;
 }
 
 JSONRPC_STATUS CInputOperations::JoypadY(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
 {
-  return SendAction(ACTION_JOYPAD_Y);
+  IInputHandler* inputHandler = g_application.m_pPlayer->GetInputHandler();
+  if (inputHandler)
+  {
+    bool down = parameterObject["down"].asBoolean();
+    CAction action = CAction(ACTION_JOYPAD_Y);
+    if (down == true)
+      inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
+    else
+      inputHandler->ProcessKeyUp(0, action.GetButtonCode());
+  }
+  return OK;
 }
 
 JSONRPC_STATUS CInputOperations::JoypadL(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
 {
-  return SendAction(ACTION_JOYPAD_L);
+  IInputHandler* inputHandler = g_application.m_pPlayer->GetInputHandler();
+  if (inputHandler)
+  {
+    bool down = parameterObject["down"].asBoolean();
+    CAction action = CAction(ACTION_JOYPAD_L);
+    if (down == true)
+      inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
+    else
+      inputHandler->ProcessKeyUp(0, action.GetButtonCode());
+  }
+  return OK;
 }
 
 JSONRPC_STATUS CInputOperations::JoypadR(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
 {
-  return SendAction(ACTION_JOYPAD_R);
+  IInputHandler* inputHandler = g_application.m_pPlayer->GetInputHandler();
+  if (inputHandler)
+  {
+    bool down = parameterObject["down"].asBoolean();
+    CAction action = CAction(ACTION_JOYPAD_R);
+    if (down == true)
+      inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
+    else
+      inputHandler->ProcessKeyUp(0, action.GetButtonCode());
+  }
+  return OK;
 }
