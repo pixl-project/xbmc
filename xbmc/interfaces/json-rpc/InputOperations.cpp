@@ -30,7 +30,6 @@
 #include "input/IInputHandler.h"
 #include "threads/SingleLock.h"
 
-
 using namespace JSONRPC;
 
 //TODO the breakage of the screensaver should be refactored
@@ -141,12 +140,15 @@ JSONRPC_STATUS CInputOperations::JoypadStart(const CStdString &method, ITranspor
   {
     bool down = parameterObject["down"].asBoolean();
     CAction action = CAction(ACTION_JOYPAD_START);
+
     if (down == true)
       inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
     else
       inputHandler->ProcessKeyUp(0, action.GetButtonCode());
+
+    return OK;
   }
-  return OK;
+  return FailedToExecute;
 }
 
 JSONRPC_STATUS CInputOperations::JoypadSelect(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
@@ -156,12 +158,15 @@ JSONRPC_STATUS CInputOperations::JoypadSelect(const CStdString &method, ITranspo
   {
     bool down = parameterObject["down"].asBoolean();
     CAction action = CAction(ACTION_JOYPAD_SELECT);
+
     if (down == true)
       inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
     else
       inputHandler->ProcessKeyUp(0, action.GetButtonCode());
+
+    return OK;
   }
-  return OK;
+  return FailedToExecute;
 }
 
 JSONRPC_STATUS CInputOperations::JoypadLeft(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
@@ -171,12 +176,15 @@ JSONRPC_STATUS CInputOperations::JoypadLeft(const CStdString &method, ITransport
   {
     bool down = parameterObject["down"].asBoolean();
     CAction action = CAction(ACTION_JOYPAD_LEFT);
+
     if (down == true)
       inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
     else
       inputHandler->ProcessKeyUp(0, action.GetButtonCode());
+
+    return OK;
   }
-  return OK;
+  return FailedToExecute;
 }
 
 JSONRPC_STATUS CInputOperations::JoypadRight(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
@@ -186,12 +194,15 @@ JSONRPC_STATUS CInputOperations::JoypadRight(const CStdString &method, ITranspor
   {
     bool down = parameterObject["down"].asBoolean();
     CAction action = CAction(ACTION_JOYPAD_RIGHT);
+
     if (down == true)
       inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
     else
       inputHandler->ProcessKeyUp(0, action.GetButtonCode());
+
+    return OK;
   }
-  return OK;
+  return FailedToExecute;
 }
 
 JSONRPC_STATUS CInputOperations::JoypadDown(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
@@ -201,12 +212,15 @@ JSONRPC_STATUS CInputOperations::JoypadDown(const CStdString &method, ITransport
   {
     bool down = parameterObject["down"].asBoolean();
     CAction action = CAction(ACTION_JOYPAD_DOWN);
+
     if (down == true)
       inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
     else
       inputHandler->ProcessKeyUp(0, action.GetButtonCode());
+
+    return OK;
   }
-  return OK;
+  return FailedToExecute;
 }
 
 JSONRPC_STATUS CInputOperations::JoypadUp(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
@@ -216,12 +230,15 @@ JSONRPC_STATUS CInputOperations::JoypadUp(const CStdString &method, ITransportLa
   {
     bool down = parameterObject["down"].asBoolean();
     CAction action = CAction(ACTION_JOYPAD_UP);
+
     if (down == true)
       inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
     else
       inputHandler->ProcessKeyUp(0, action.GetButtonCode());
+
+    return OK;
   }
-  return OK;
+  return FailedToExecute;
 }
 
 JSONRPC_STATUS CInputOperations::JoypadA(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
@@ -231,12 +248,15 @@ JSONRPC_STATUS CInputOperations::JoypadA(const CStdString &method, ITransportLay
   {
     bool down = parameterObject["down"].asBoolean();
     CAction action = CAction(ACTION_JOYPAD_A);
+
     if (down == true)
       inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
     else
       inputHandler->ProcessKeyUp(0, action.GetButtonCode());
+
+    return OK;
   }
-  return OK;
+  return FailedToExecute;
 }
 
 JSONRPC_STATUS CInputOperations::JoypadB(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
@@ -246,12 +266,15 @@ JSONRPC_STATUS CInputOperations::JoypadB(const CStdString &method, ITransportLay
   {
     bool down = parameterObject["down"].asBoolean();
     CAction action = CAction(ACTION_JOYPAD_B);
+
     if (down == true)
       inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
     else
       inputHandler->ProcessKeyUp(0, action.GetButtonCode());
+
+    return OK;
   }
-  return OK;
+  return FailedToExecute;
 }
 
 JSONRPC_STATUS CInputOperations::JoypadX(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
@@ -261,12 +284,15 @@ JSONRPC_STATUS CInputOperations::JoypadX(const CStdString &method, ITransportLay
   {
     bool down = parameterObject["down"].asBoolean();
     CAction action = CAction(ACTION_JOYPAD_X);
+
     if (down == true)
       inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
     else
       inputHandler->ProcessKeyUp(0, action.GetButtonCode());
+
+    return OK;
   }
-  return OK;
+  return FailedToExecute;
 }
 
 JSONRPC_STATUS CInputOperations::JoypadY(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
@@ -276,12 +302,15 @@ JSONRPC_STATUS CInputOperations::JoypadY(const CStdString &method, ITransportLay
   {
     bool down = parameterObject["down"].asBoolean();
     CAction action = CAction(ACTION_JOYPAD_Y);
+
     if (down == true)
       inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
     else
       inputHandler->ProcessKeyUp(0, action.GetButtonCode());
+
+    return OK;
   }
-  return OK;
+  return FailedToExecute;
 }
 
 JSONRPC_STATUS CInputOperations::JoypadL(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
@@ -291,12 +320,15 @@ JSONRPC_STATUS CInputOperations::JoypadL(const CStdString &method, ITransportLay
   {
     bool down = parameterObject["down"].asBoolean();
     CAction action = CAction(ACTION_JOYPAD_L);
+
     if (down == true)
       inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
     else
       inputHandler->ProcessKeyUp(0, action.GetButtonCode());
+
+    return OK;
   }
-  return OK;
+  return FailedToExecute;
 }
 
 JSONRPC_STATUS CInputOperations::JoypadR(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
@@ -306,10 +338,13 @@ JSONRPC_STATUS CInputOperations::JoypadR(const CStdString &method, ITransportLay
   {
     bool down = parameterObject["down"].asBoolean();
     CAction action = CAction(ACTION_JOYPAD_R);
+
     if (down == true)
       inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
     else
       inputHandler->ProcessKeyUp(0, action.GetButtonCode());
+
+    return OK;
   }
-  return OK;
+  return FailedToExecute;
 }
