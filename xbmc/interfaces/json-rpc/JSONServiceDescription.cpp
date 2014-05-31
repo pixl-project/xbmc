@@ -206,18 +206,7 @@ JsonRpcMethodMap CJSONServiceDescription::m_methodMaps[] = {
   { "Input.ShowCodec",                              CInputOperations::ShowCodec },
   { "Input.ShowOSD",                                CInputOperations::ShowOSD },
 
-  { "Input.JoypadStart",                            CInputOperations::JoypadStart },
-  { "Input.JoypadSelect",                           CInputOperations::JoypadSelect },
-  { "Input.JoypadLeft",                             CInputOperations::JoypadLeft },
-  { "Input.JoypadRight",                            CInputOperations::JoypadRight },
-  { "Input.JoypadUp",                               CInputOperations::JoypadUp },
-  { "Input.JoypadDown",                             CInputOperations::JoypadDown },
-  { "Input.JoypadA",                                CInputOperations::JoypadA },
-  { "Input.JoypadB",                                CInputOperations::JoypadB },
-  { "Input.JoypadX",                                CInputOperations::JoypadX },
-  { "Input.JoypadY",                                CInputOperations::JoypadY },
-  { "Input.JoypadL",                                CInputOperations::JoypadL },
-  { "Input.JoypadR",                                CInputOperations::JoypadR },
+  { "Input.SetJoypadState",                         CInputOperations::SetJoypadState },
 
 // Application operations
   { "Application.GetProperties",                    CApplicationOperations::GetProperties },

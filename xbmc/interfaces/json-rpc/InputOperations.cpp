@@ -133,218 +133,27 @@ JSONRPC_STATUS CInputOperations::ShowOSD(const CStdString &method, ITransportLay
   return SendAction(ACTION_SHOW_OSD);
 }
 
-JSONRPC_STATUS CInputOperations::JoypadStart(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
+JSONRPC_STATUS CInputOperations::SetJoypadState(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
 {
-  IInputHandler* inputHandler = g_application.m_pPlayer->GetInputHandler();
-  if (inputHandler)
+  int joypadId = parameterObject["joypad_id"].asInteger();
+  int buttonId = parameterObject["button_id"].asInteger();
+  bool buttonDown = parameterObject["button_down"].asBoolean();
+  int actionId = parameterObject["action_id"].asInteger();
+
+  if (ACTION_GAME_CONTROL_START <= actionId && actionId <= ACTION_GAME_CONTROL_END)
   {
-    bool down = parameterObject["down"].asBoolean();
-    CAction action = CAction(ACTION_JOYPAD_START);
+    CAction action = CAction(actionId);
 
-    if (down == true)
-      inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
-    else
-      inputHandler->ProcessKeyUp(0, action.GetButtonCode());
-
-    return OK;
-  }
-  return FailedToExecute;
-}
-
-JSONRPC_STATUS CInputOperations::JoypadSelect(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
-{
-  IInputHandler* inputHandler = g_application.m_pPlayer->GetInputHandler();
-  if (inputHandler)
-  {
-    bool down = parameterObject["down"].asBoolean();
-    CAction action = CAction(ACTION_JOYPAD_SELECT);
-
-    if (down == true)
-      inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
-    else
-      inputHandler->ProcessKeyUp(0, action.GetButtonCode());
-
-    return OK;
-  }
-  return FailedToExecute;
-}
-
-JSONRPC_STATUS CInputOperations::JoypadLeft(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
-{
-  IInputHandler* inputHandler = g_application.m_pPlayer->GetInputHandler();
-  if (inputHandler)
-  {
-    bool down = parameterObject["down"].asBoolean();
-    CAction action = CAction(ACTION_JOYPAD_LEFT);
-
-    if (down == true)
-      inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
-    else
-      inputHandler->ProcessKeyUp(0, action.GetButtonCode());
-
-    return OK;
-  }
-  return FailedToExecute;
-}
-
-JSONRPC_STATUS CInputOperations::JoypadRight(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
-{
-  IInputHandler* inputHandler = g_application.m_pPlayer->GetInputHandler();
-  if (inputHandler)
-  {
-    bool down = parameterObject["down"].asBoolean();
-    CAction action = CAction(ACTION_JOYPAD_RIGHT);
-
-    if (down == true)
-      inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
-    else
-      inputHandler->ProcessKeyUp(0, action.GetButtonCode());
-
-    return OK;
-  }
-  return FailedToExecute;
-}
-
-JSONRPC_STATUS CInputOperations::JoypadDown(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
-{
-  IInputHandler* inputHandler = g_application.m_pPlayer->GetInputHandler();
-  if (inputHandler)
-  {
-    bool down = parameterObject["down"].asBoolean();
-    CAction action = CAction(ACTION_JOYPAD_DOWN);
-
-    if (down == true)
-      inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
-    else
-      inputHandler->ProcessKeyUp(0, action.GetButtonCode());
-
-    return OK;
-  }
-  return FailedToExecute;
-}
-
-JSONRPC_STATUS CInputOperations::JoypadUp(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
-{
-  IInputHandler* inputHandler = g_application.m_pPlayer->GetInputHandler();
-  if (inputHandler)
-  {
-    bool down = parameterObject["down"].asBoolean();
-    CAction action = CAction(ACTION_JOYPAD_UP);
-
-    if (down == true)
-      inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
-    else
-      inputHandler->ProcessKeyUp(0, action.GetButtonCode());
-
-    return OK;
-  }
-  return FailedToExecute;
-}
-
-JSONRPC_STATUS CInputOperations::JoypadA(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
-{
-  IInputHandler* inputHandler = g_application.m_pPlayer->GetInputHandler();
-  if (inputHandler)
-  {
-    bool down = parameterObject["down"].asBoolean();
-    CAction action = CAction(ACTION_JOYPAD_A);
-
-    if (down == true)
-      inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
-    else
-      inputHandler->ProcessKeyUp(0, action.GetButtonCode());
-
-    return OK;
-  }
-  return FailedToExecute;
-}
-
-JSONRPC_STATUS CInputOperations::JoypadB(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
-{
-  IInputHandler* inputHandler = g_application.m_pPlayer->GetInputHandler();
-  if (inputHandler)
-  {
-    bool down = parameterObject["down"].asBoolean();
-    CAction action = CAction(ACTION_JOYPAD_B);
-
-    if (down == true)
-      inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
-    else
-      inputHandler->ProcessKeyUp(0, action.GetButtonCode());
-
-    return OK;
-  }
-  return FailedToExecute;
-}
-
-JSONRPC_STATUS CInputOperations::JoypadX(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
-{
-  IInputHandler* inputHandler = g_application.m_pPlayer->GetInputHandler();
-  if (inputHandler)
-  {
-    bool down = parameterObject["down"].asBoolean();
-    CAction action = CAction(ACTION_JOYPAD_X);
-
-    if (down == true)
-      inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
-    else
-      inputHandler->ProcessKeyUp(0, action.GetButtonCode());
-
-    return OK;
-  }
-  return FailedToExecute;
-}
-
-JSONRPC_STATUS CInputOperations::JoypadY(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
-{
-  IInputHandler* inputHandler = g_application.m_pPlayer->GetInputHandler();
-  if (inputHandler)
-  {
-    bool down = parameterObject["down"].asBoolean();
-    CAction action = CAction(ACTION_JOYPAD_Y);
-
-    if (down == true)
-      inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
-    else
-      inputHandler->ProcessKeyUp(0, action.GetButtonCode());
-
-    return OK;
-  }
-  return FailedToExecute;
-}
-
-JSONRPC_STATUS CInputOperations::JoypadL(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
-{
-  IInputHandler* inputHandler = g_application.m_pPlayer->GetInputHandler();
-  if (inputHandler)
-  {
-    bool down = parameterObject["down"].asBoolean();
-    CAction action = CAction(ACTION_JOYPAD_L);
-
-    if (down == true)
-      inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
-    else
-      inputHandler->ProcessKeyUp(0, action.GetButtonCode());
-
-    return OK;
-  }
-  return FailedToExecute;
-}
-
-JSONRPC_STATUS CInputOperations::JoypadR(const CStdString &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
-{
-  IInputHandler* inputHandler = g_application.m_pPlayer->GetInputHandler();
-  if (inputHandler)
-  {
-    bool down = parameterObject["down"].asBoolean();
-    CAction action = CAction(ACTION_JOYPAD_R);
-
-    if (down == true)
-      inputHandler->ProcessKeyDown(0, action.GetButtonCode(), action);
-    else
-      inputHandler->ProcessKeyUp(0, action.GetButtonCode());
-
-    return OK;
+    IInputHandler* inputHandler = g_application.m_pPlayer->GetInputHandler();
+    if (inputHandler)
+    {
+      if (buttonDown == true)
+        inputHandler->ProcessKeyDown(joypadId, buttonId, action);
+      else
+        inputHandler->ProcessKeyUp(joypadId, buttonId);
+      
+      return OK;
+    }
   }
   return FailedToExecute;
 }
