@@ -286,10 +286,6 @@ public:
   PlayState m_ePlayState;
   CCriticalSection m_playStateMutex;
 
-  bool m_bInBackground;
-  inline bool IsInBackground() { return m_bInBackground; };
-  void SetInBackground(bool background);
-
   CKaraokeLyricsManager* m_pKaraokeMgr;
 
   PLAYERCOREID m_eForcedNextPlayer;

@@ -331,6 +331,7 @@
 
 #define ACTION_SETTINGS_RESET         241
 #define ACTION_SETTINGS_LEVEL_CHANGE  242
+#define ACTION_TRIGGER_OSD            243 // show autoclosing OSD. Can b used in videoFullScreen.xml window id=2005
 
 // The Joypad is essentially a Super Nintendo controller, but with additional
 // L2/R2/L3/R3 buttons, similar to a PS1 DualShock
@@ -573,4 +574,3 @@ private:
 #endif //undef SWIG
 
 #endif
-
