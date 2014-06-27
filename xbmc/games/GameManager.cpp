@@ -73,12 +73,11 @@ CGameManager& CGameManager::Get()
 
 void CGameManager::Start()
 {
-  CAddonMgr::Get().RegisterAddonMgrCallback(ADDON_GAMEDLL, this);
   CAddonMgr::Get().RegisterObserver(this);
   CAddonInstaller::Get().RegisterObserver(this);
   CAddonDatabase::RegisterAddonDatabaseCallback(ADDON_GAMEDLL, this);
+  // TODO: CAddonMgr::Get().RegisterAddonMgrCallback(ADDON_GAMEDLL, this);
 
-  // TODO: Run these off-thread
   // Must call UpdateAddons(), as CAddonMgr::Init() is called before CGameManager::Start(),
   // so we won't receive the first ObservableMessageAddons message.
   UpdateAddons();
@@ -87,32 +86,10 @@ void CGameManager::Start()
 
 void CGameManager::Stop()
 {
-  CAddonMgr::Get().UnregisterAddonMgrCallback(ADDON_GAMEDLL);
   CAddonMgr::Get().UnregisterObserver(this);
   // TODO: Why does this crash?
   //CAddonInstaller::Get().UnregisterObserver(this);
   CAddonDatabase::UnregisterAddonDatabaseCallback(ADDON_GAMEDLL);
-}
-
-bool CGameManager::StopClient(AddonPtr client, bool bRestart)
-{
-  // This lock is to ensure that ReCreate() or Destroy() are not started from
-  // multiple threads.
-  CSingleLock lock(m_critSection);
-
-  GameClientPtr mappedClient;
-  if (GetClient(client->ID(), mappedClient))
-  {
-    CLog::Log(LOGDEBUG, "%s - %s add-on '%s'", __FUNCTION__, bRestart ? "restarting" : "stopping", mappedClient->Name().c_str());
-    if (bRestart)
-      mappedClient->Create();
-    else
-      mappedClient->Destroy();
-
-    return bRestart ? mappedClient->ReadyToUse() : true;
-  }
-
-  return false;
 }
 
 bool CGameManager::UpdateAddons()
@@ -124,7 +101,7 @@ bool CGameManager::UpdateAddons()
 
     for (VECADDONS::const_iterator it = gameClients.begin(); it != gameClients.end(); it++)
     {
-      if (!RegisterAddon(boost::dynamic_pointer_cast<CGameClient>(*it)))
+      if (!RegisterAddon(boost::dynamic_pointer_cast<CGameClient>(*it)) && (*it)->Enabled())
         CAddonMgr::Get().DisableAddon((*it)->ID());
     }
   }
@@ -151,7 +128,7 @@ void CGameManager::UpdateExtensions()
       if (!gc)
         continue;
 
-      bool bIsBroken = !gc->Props().broken.empty();
+      const bool bIsBroken = !gc->Props().broken.empty();
       if (!bIsBroken && !gc->GetExtensions().empty())
         m_gameExtensions.insert(gc->GetExtensions().begin(), gc->GetExtensions().end());
     }
@@ -164,11 +141,6 @@ bool CGameManager::RegisterAddon(const GameClientPtr& client)
   if (!client)
     return false;
 
-  // This special game client is a wrapper for libretro cores. It shouldn't be
-  // registered as a real game client.
-  if (client->ID() == LIBRETRO_WRAPPER_LIBRARY)
-    return false;
-
   if (!client->Enabled())
     return false;
 
@@ -178,15 +150,6 @@ bool CGameManager::RegisterAddon(const GameClientPtr& client)
     if (it != m_gameClients.end())
       return true; // Already registered
   }
-
-  if (client->Create() != ADDON_STATUS_OK)
-  {
-    CLog::Log(LOGERROR, "GameManager: failed to load DLL for %s", client->ID().c_str());
-    CGUIDialogKaiToast::QueueNotification(client->Icon(), client->Name(), g_localizeStrings.Get(27003)); // Error loading DLL
-    return false;
-  }
-
-  client->Destroy();
 
   m_gameClients[client->ID()] = client;
   CLog::Log(LOGDEBUG, "GameManager: Registered add-on %s", client->ID().c_str());
@@ -201,14 +164,7 @@ void CGameManager::UnregisterAddonByID(const string& strClientId)
 {
   GameClientMap::iterator it = m_gameClients.find(strClientId);
   if (it != m_gameClients.end())
-  {
-    it->second->Destroy();
     m_gameClients.erase(it);
-  }
-  else
-  {
-    CLog::Log(LOGERROR, "GameManager: can't unregister %s - not registered!", strClientId.c_str());
-  }
 }
 
 bool CGameManager::GetClient(const string& strClientId, GameClientPtr& addon) const
@@ -221,27 +177,6 @@ bool CGameManager::GetClient(const string& strClientId, GameClientPtr& addon) co
     addon = itr->second;
     return true;
   }
-  return false;
-}
-
-bool CGameManager::GetConnectedClient(const string& strClientId, GameClientPtr& addon) const
-{
-  return GetClient(strClientId, addon) && addon->ReadyToUse();
-}
-
-bool CGameManager::IsConnectedClient(const string &strClientId) const
-{
-  GameClientPtr client;
-  return GetConnectedClient(strClientId, client);
-}
-
-bool CGameManager::IsConnectedClient(const AddonPtr addon) const
-{
-  // See if we are tracking the client
-  CSingleLock lock(m_critSection);
-  GameClientMap::const_iterator itr = m_gameClients.find(addon->ID());
-  if (itr != m_gameClients.end())
-    return itr->second->ReadyToUse();
   return false;
 }
 
@@ -273,6 +208,12 @@ void CGameManager::GetExtensions(vector<string> &exts) const
 {
   CSingleLock lock(m_critSection);
   exts.insert(exts.end(), m_gameExtensions.begin(), m_gameExtensions.end());
+}
+
+const std::set<std::string>& CGameManager::GetExtensions() const
+{
+  CSingleLock lock(m_critSection);
+  return m_gameExtensions;
 }
 
 bool CGameManager::IsGame(const std::string &path) const
@@ -351,7 +292,7 @@ void CGameManager::GetAllGameClients(ADDON::VECADDONS& addons)
     // Sort by ID and remove duplicates
     AddonSortByIDFunctor AddonSortByID;
     std::sort(addons.begin(), addons.end(), AddonSortByID);
-    for (VECADDONS::iterator it = addons.begin(); it != addons.end() - 1; )
+    for (VECADDONS::iterator it = addons.begin(); it + 1 != addons.end(); )
     {
       if ((*it)->ID() == (*(it + 1))->ID())
         addons.erase(it + 1);

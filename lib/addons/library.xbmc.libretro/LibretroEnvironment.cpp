@@ -41,7 +41,6 @@ CHelper_libXBMC_game*  CLibretroEnvironment::m_frontend = NULL;
 CLibretroDLL*          CLibretroEnvironment::m_client = NULL;
 CClientBridge*         CLibretroEnvironment::m_clientBridge = NULL;
 
-bool              CLibretroEnvironment::m_bSupportsNoGame = false;
 double            CLibretroEnvironment::m_fps = 0.0;
 bool              CLibretroEnvironment::m_bFramerateKnown = false;
 GAME_PIXEL_FORMAT CLibretroEnvironment::m_pixelFormat = GAME_PIXEL_FORMAT_0RGB1555; // Default per libretro.h
@@ -153,7 +152,7 @@ bool CLibretroEnvironment::EnvironmentCallback(unsigned int cmd, void *data)
         return false;
 
       m_pixelFormat = (GAME_PIXEL_FORMAT)*typedData;
-      
+
       break;
     }
   case RETRO_ENVIRONMENT_SET_INPUT_DESCRIPTORS:
@@ -287,10 +286,10 @@ bool CLibretroEnvironment::EnvironmentCallback(unsigned int cmd, void *data)
           if ((pos = values.find(';')) != string::npos)
           {
             pos++;
-            while (values[pos] == ' ')
+            while (pos < values.size() && values[pos] == ' ')
               pos++;
+            values = values.substr(pos);
           }
-          values = values.substr(pos);
 
           // Split the values on | delimiter
           while (!values.empty())
@@ -326,8 +325,9 @@ bool CLibretroEnvironment::EnvironmentCallback(unsigned int cmd, void *data)
       const bool* typedData = reinterpret_cast<const bool*>(data);
       if (typedData)
       {
-        // Store this value so that it can be queried directly via the Game API
-        m_bSupportsNoGame = *typedData;
+        const bool bSupportsNoGame = *typedData;
+        if (bSupportsNoGame)
+          m_xbmc->Log(LOG_DEBUG, "Libretro client supports loading with no game");
       }
       break;
     }
